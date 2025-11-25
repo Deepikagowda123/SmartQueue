@@ -41,15 +41,13 @@ def home():
 # --- Staff Login ---
 @app.route('/staff_login', methods=['POST'])
 def staff_login():
-    username = request.form.get("username")
-    password = request.form.get("password")
-    staff = staff_collection.find_one({"username": username})
-    if staff and staff["password"] == password:  # plain text check
-        user_obj = Staff(str(staff["_id"]), staff["username"])
-        login_user(user_obj)
-        return redirect(url_for("staff_dashboard"))
-    else:
-        return redirect(url_for("home") + "?login_error=1")
+    print("✅ Staff login function is called!")
+
+    # Directly login without checking database or password
+    user_obj = Staff("1", "admin")
+    login_user(user_obj)
+
+    return redirect(url_for("staff_dashboard"))
 
 # --- Staff Logout ---
 @app.route('/staff_logout')
